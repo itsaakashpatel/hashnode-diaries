@@ -3,17 +3,17 @@ import React, { useState } from "react"
 import { useHashnodePublishPost } from "hashnode-client"
 import { useRouter } from "next/navigation"
 
-const dataPayload = {
-  settings: {
-    personalAccessToken: process.env.NEXT_PUBLIC_PERSONAL_ACCESS_TOKEN,
-    host: process.env.NEXT_PUBLIC_HOST_URL,
-  },
-}
-
-const CreatePost = () => {
+const CreatePost = ({ host }) => {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   const { publish } = useHashnodePublishPost(dataPayload.settings)
+  const dataPayload = {
+    settings: {
+      personalAccessToken: process.env.NEXT_PUBLIC_PERSONAL_ACCESS_TOKEN,
+      host: host || process.env.NEXT_PUBLIC_HOST_URL,
+    },
+  }
+
   const [formData, setFormData] = useState({
     title: "",
     subtitle: "",
